@@ -7,20 +7,23 @@ const packageJson = require("../package.json");
 const devConfig = {
     mode: "development",
     output: {
-        publicPath: "http://localhost:8081/",
+        publicPath: "http://localhost:8082/",
+        // this is needed so the the main.js is served from the root (/).
+        // issue with this project because it has routes by default like /auth/signin and main.js is not in those paths
+        // need to use localhost:8082 because of the federation has to load the remoteEntry from there. normally just / would be fine
     },
     devServer: {
-        port: 8081,
+        port: 8082,
         historyApiFallback: {
             index: "/index.html",
         },
     },
     plugins: [
         new ModuleFederationPlugin({
-            name: "marketing",
+            name: "auth",
             filename: "remoteEntry.js",
             exposes: {
-                "./MarketingApp": "./src/bootstrap",
+                "./AuthApp": "./src/bootstrap",
             },
             shared: packageJson.dependencies,
         }),
