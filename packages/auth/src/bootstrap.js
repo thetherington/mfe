@@ -5,7 +5,7 @@ import { createMemoryHistory, createBrowserHistory } from "history";
 import App from "./App";
 
 // Mount function to start up the app
-const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
+const mount = (el, { onNavigate, defaultHistory, initialPath, onSignIn }) => {
     // defaultHistory set to BrowserHistory if in dev local isolation.
     const history =
         defaultHistory ||
@@ -18,7 +18,7 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
         history.listen(onNavigate);
     }
 
-    ReactDOM.render(<App history={history} />, el);
+    ReactDOM.render(<App onSignIn={onSignIn} history={history} />, el);
 
     // return a call back function for container to update the marketing router
     return {

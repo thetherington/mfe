@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import { mount } from "auth/AuthApp";
 
-const AuthApp = () => {
+const AuthApp = ({ onSignIn }) => {
     const ref = useRef(null);
     const history = useHistory();
 
@@ -19,6 +19,7 @@ const AuthApp = () => {
                 }
             },
             initialPath: history.location.pathname, // send in on mount what the path is (used for projects that have routed endpoints by default)
+            onSignIn,
         });
 
         // listen for changes in router and update microfrontend router
